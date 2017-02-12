@@ -131,7 +131,8 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getAuthKey()
     {
-        return $this->auth_key;
+//        return $this->auth_key;
+        throw new NotSupportedException();
     }
 
     /**
@@ -139,7 +140,8 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validateAuthKey($authKey)
     {
-        return $this->getAuthKey() === $authKey;
+//        return $this->getAuthKey() === $authKey;
+        throw new NotSupportedException();
     }
 
     /**
@@ -150,7 +152,8 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return Yii::$app->security->validatePassword($password, $this->password_hash);
+//        return Yii::$app->security->validatePassword($password, $this->password_hash);
+        return strcmp($password, $this->password_hash);
     }
 
     /**
@@ -168,7 +171,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function generateAuthKey()
     {
-        $this->auth_key = Yii::$app->security->generateRandomString();
+//        $this->auth_key = Yii::$app->security->generateRandomString();
     }
 
     /**
@@ -176,7 +179,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function generatePasswordResetToken()
     {
-        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+//        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
     }
 
     /**
@@ -184,6 +187,6 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function removePasswordResetToken()
     {
-        $this->password_reset_token = null;
+//        $this->password_reset_token = null;
     }
 }
