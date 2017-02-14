@@ -39,6 +39,7 @@ AppAsset::register($this);
         ['label' => 'Người dùng', 'url' => '?r=user'],
         ['label' => 'Sản phẩm', 'url' => '?r=products/product'],
         ['label' => 'Loại sản phẩm', 'url' => '?r=producttypes/producttype'],
+        ['label' => 'ảnh', 'url' => '?r=images/image'],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];

@@ -12,14 +12,14 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [
-        'product' => [
-            'class' => 'backend\modules\product\Product',
-        ],
         'products' => [
             'class' => 'backend\modules\products\Product',
         ],
         'producttypes' =>[
             'class' => 'backend\modules\producttypes\ProductType'
+        ],
+        'images' => [
+            'class' => 'backend\modules\images\Image',
         ],
     ],
     'components' => [
