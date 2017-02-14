@@ -28,14 +28,17 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => 'Garmenttech',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']], ['label' => 'Product Type', 'url' => '/product/index'],
+        ['label' => 'Trang chủ', 'url' => ['/site/index']], 
+        ['label' => 'Người dùng', 'url' => '?r=user'],
+        ['label' => 'Sản phẩm', 'url' => '?r=products/product'],
+        ['label' => 'Loại sản phẩm', 'url' => '?r=producttypes/producttype'],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
@@ -67,9 +70,9 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; No name team <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-right"> contact Pham Thi Thu Thuy for more information</p>
     </div>
 </footer>
 

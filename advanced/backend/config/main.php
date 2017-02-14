@@ -12,9 +12,15 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [
-        'settings' => [
-            'class' => 'backend\modules\settings\Setting',
-        ]
+        'product' => [
+            'class' => 'backend\modules\product\Product',
+        ],
+        'products' => [
+            'class' => 'backend\modules\products\Product',
+        ],
+        'producttypes' =>[
+            'class' => 'backend\modules\producttypes\ProductType'
+        ],
     ],
     'components' => [
         'request' => [
