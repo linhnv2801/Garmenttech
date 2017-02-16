@@ -14,12 +14,8 @@ use yii\widgets\ActiveForm;
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
-
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'product_type_name') ?>
-
-    <?= $form->field($model, 'parents') ?>
+    
+    <?= $form->field($model, 'Tìm theo tên sản phẩm') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
