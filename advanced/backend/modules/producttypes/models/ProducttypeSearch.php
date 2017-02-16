@@ -1,16 +1,16 @@
 <?php
 
-namespace backend\modules\products\models;
+namespace backend\modules\producttypes\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\modules\products\models\Product;
+use backend\modules\producttypes\models\Producttype;
 
 /**
- * ProductSearch represents the model behind the search form about `backend\modules\products\models\Product`.
+ * ProducttypeSearch represents the model behind the search form about `backend\modules\producttypes\models\Producttype`.
  */
-class ProductSearch extends Product
+class ProducttypeSearch extends Producttype
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class ProductSearch extends Product
     public function rules()
     {
         return [
-            [['id', 'product_type_id', 'price'], 'integer'],
-            [['product_name', 'descritption', 'video_url', 'created_at'], 'safe'],
+            [['id', 'parents'], 'integer'],
+            [['product_type_name'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class ProductSearch extends Product
      */
     public function search($params)
     {
-        $query = Product::find();
+        $query = Producttype::find();
 
         // add conditions that should always apply here
 
@@ -60,14 +60,10 @@ class ProductSearch extends Product
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'product_type_id' => $this->product_type_id,
-            'price' => $this->price,
-            'created_at' => $this->created_at,
+            'parents' => $this->parents,
         ]);
 
-        $query->andFilterWhere(['like', 'product_name', $this->product_name])
-            ->andFilterWhere(['like', 'descritption', $this->descritption])
-            ->andFilterWhere(['like', 'video_url', $this->video_url]);
+        $query->andFilterWhere(['like', 'product_type_name', $this->product_type_name]);
 
         return $dataProvider;
     }

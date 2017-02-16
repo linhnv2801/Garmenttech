@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\modules\products\models\ProductSearch */
+/* @var $searchModel backend\modules\producttypes\models\ProducttypeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Products';
+$this->title = 'Producttypes';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="product-index">
+<div class="producttype-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Product', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Producttype', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -25,12 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'product_name:ntext',
-            'product_type_id',
-            'price',
-            'descritption:ntext',
-            // 'video_url:ntext',
-            // 'created_at',
+            'product_type_name:ntext',
+            'parents',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
