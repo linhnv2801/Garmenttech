@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th2 15, 2017 lúc 06:37 SA
+-- Thời gian đã tạo: Th2 16, 2017 lúc 10:31 SA
 -- Phiên bản máy phục vụ: 10.1.21-MariaDB
 -- Phiên bản PHP: 7.1.1
 
@@ -58,10 +58,10 @@ INSERT INTO `product` (`id`, `product_name`, `product_type_id`, `price`, `descri
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `product_type`
+-- Cấu trúc bảng cho bảng `producttype`
 --
 
-CREATE TABLE `product_type` (
+CREATE TABLE `producttype` (
   `id` int(11) NOT NULL,
   `product_type_name` text COLLATE utf8_unicode_520_ci NOT NULL,
   `parents` int(11) DEFAULT NULL
@@ -110,9 +110,9 @@ ALTER TABLE `product`
   ADD UNIQUE KEY `product_type_id` (`product_type_id`);
 
 --
--- Chỉ mục cho bảng `product_type`
+-- Chỉ mục cho bảng `producttype`
 --
-ALTER TABLE `product_type`
+ALTER TABLE `producttype`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -136,9 +136,9 @@ ALTER TABLE `image`
 ALTER TABLE `product`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT cho bảng `product_type`
+-- AUTO_INCREMENT cho bảng `producttype`
 --
-ALTER TABLE `product_type`
+ALTER TABLE `producttype`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT cho bảng `user`
