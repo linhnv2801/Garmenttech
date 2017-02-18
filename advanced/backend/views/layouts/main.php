@@ -36,11 +36,15 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Trang chủ', 'url' => ['/site/index']], 
-        ['label' => 'Người dùng', 'url' => '?r=user'],
-        ['label' => 'Sản phẩm', 'url' => '?r=products/product'],
-        ['label' => 'Loại sản phẩm', 'url' => '?r=producttypes/producttype'],
-        ['label' => 'ảnh', 'url' => '?r=images/image'],
+        
     ];
+    if(!Yii::$app->user->isGuest){
+        array_push($menuItems, ['label' => 'Người dùng', 'url' => '?r=user']);
+        array_push($menuItems, ['label' => 'Sản phẩm', 'url' => '?r=products/product']);
+        array_push($menuItems, ['label' => 'Loại sản phẩm', 'url' => '?r=producttypes/producttype']);
+        array_push($menuItems, ['label' => 'ảnh', 'url' => '?r=images/image']);
+        
+    }
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
