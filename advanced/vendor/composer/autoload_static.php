@@ -209,13 +209,6 @@ class ComposerStaticInit94d15878bc24100850c6281a1e85878c
                 0 => __DIR__ . '/..' . '/phpspec/php-diff/lib',
             ),
         ),
-        'C' => 
-        array (
-            'Codeception\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/codeception/specify/src',
-            ),
-        ),
         'B' => 
         array (
             'Behat\\Gherkin' => 

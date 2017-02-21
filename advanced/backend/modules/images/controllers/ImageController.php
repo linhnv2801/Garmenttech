@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\UploadedFile;
+
 
 /**
  * ImageController implements the CRUD actions for Image model.
@@ -76,10 +78,19 @@ class ImageController extends Controller
     public function actionCreate()
     {
         $model = new Image();
+        if ($model->load(Yii::$app->request->post())) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+              $image = UploadedFile::getInstance($model, 'base_url');
+              if(!empty($image)){
+                  $image->saveAs(Yii::$app->basePath . '/uploads/' . md5($image->baseName) . '.' . $image->extension);
+                  $model->base_url = md5($image->baseName) . '.' . $image->extension;
+                  $model->name = $image->baseName;
+                  $model->save(false);
+              }
+
+              return $this->redirect(['view', 'id' => $model->id]);
+          }
+        else {
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -97,6 +108,8 @@ class ImageController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->base_url = UploadedFile::getInstance($model, 'base_url');
+            
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

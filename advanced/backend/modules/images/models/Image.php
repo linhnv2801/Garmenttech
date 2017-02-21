@@ -27,8 +27,9 @@ class Image extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'base_url'], 'required'],
+            [['base_url'], 'required'],
             [['name', 'base_url'], 'string'],
+            [['base_url'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
         ];
     }
 
@@ -42,5 +43,18 @@ class Image extends \yii\db\ActiveRecord
             'name' => 'Name',
             'base_url' => 'Base Url',
         ];
+    }
+    
+    public function upload(){
+        if($this->validate() && $this->save(false)){
+            $this->base_url->saveAs('uploads/' . $this->base_url->baseName . '.' . $this->base_url->extension);
+            return true;
+        }
+        return false;
+    }
+    
+    public function getId()
+    {
+        return $this->getPrimaryKey();
     }
 }

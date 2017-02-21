@@ -32,9 +32,9 @@ $this->title = 'Garmenttech';
                 <p><a class="btn btn-default" href="index.php?r=producttypes/producttype">Loại sản phẩm &raquo;</a></p>
             </div>
             <div class="col-lg-4">
-                <h2>Người dùng</h2>
+                <h2>Quản lý ảnh</h2>
 
-                <p>Vào đây nếu bạn muốn thêm, sửa, xoá thông tin về người dùng trên trang web.</p>
+                <p>Vào đây nếu bạn muốn thêm, sửa, xoá ảnh trên trang web.</p>
 
                 <p><a class="btn btn-default" href="index.php?r=user">Người dùng &raquo;</a></p>
             </div>
