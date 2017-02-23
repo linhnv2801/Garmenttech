@@ -108,8 +108,13 @@ class ImageController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $model->base_url = UploadedFile::getInstance($model, 'base_url');
-            
+            $image = UploadedFile::getInstance($model, 'base_url');
+            if(!empty($image)){
+                  $image->saveAs(Yii::$app->basePath . '/uploads/' . md5($image->baseName) . '.' . $image->extension);
+                  $model->base_url = md5($image->baseName) . '.' . $image->extension;
+                  $model->name = $image->baseName;
+                  $model->save(false);
+              }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

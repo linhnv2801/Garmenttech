@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Admin', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Thêm tài khoản admin', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -27,7 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'username:ntext',
             'email:ntext',
-            'password_hash:ntext',
             'status',
             // 'created_at',
             // 'updated_at',

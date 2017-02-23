@@ -27,9 +27,9 @@ class Image extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['base_url'], 'required'],
+            [['base_url', 'productId'], 'required'],
             [['name', 'base_url'], 'string'],
-            [['base_url'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
+            [['base_url'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg', 'maxFiles' => 10],
         ];
     }
 
@@ -42,6 +42,7 @@ class Image extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'base_url' => 'Base Url',
+            'productId' => 'Product Id'
         ];
     }
     

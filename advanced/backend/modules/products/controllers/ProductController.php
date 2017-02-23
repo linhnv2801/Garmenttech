@@ -5,10 +5,16 @@ namespace backend\modules\products\controllers;
 use Yii;
 use backend\modules\products\models\Product;
 use backend\modules\products\models\ProductSearch;
+use backend\modules\images\models\Image;
+use backend\modules\producttypes\models\ProductType;
+
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\base\Model;
+use yii\web\UploadedFile;
+use yii\helpers\ArrayHelper;
 
 /**
  * ProductController implements the CRUD actions for Product model.
@@ -55,6 +61,21 @@ class ProductController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    
+//    public function actionIndex()
+//    {
+//        $searchModel = new ProductSearch();
+//        $productModel = new Product();
+//        $imageModel = new Image();
+//        $producttypeModel = new ProductType();
+//
+//        return $this->render('index', [
+//            'searchModel' => $searchModel,
+//            'productModel' => $productModel,
+//            'imageModel' => $imageModel,
+//            'producttypeModel' => $producttypeModel,
+//        ]);
+//    }
 
     /**
      * Displays a single Product model.
@@ -76,12 +97,38 @@ class ProductController extends Controller
     public function actionCreate()
     {
         $model = new Product();
+        $imageModel = new Image();
+        $producttypeModel = new ProductType();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $imageModel->load(Yii::$app->request->post()) && $model->save()) {
+            $images = UploadedFile::getInstances($imageModel, 'base_url');
+            foreach($images as $image){
+                $imageModelSave = new Image();
+              if(!empty($image)){
+                  $image->saveAs(Yii::$app->basePath . '/uploads/' . md5($image->baseName) . '.' . $image->extension);
+                  $imageModelSave->base_url = md5($image->baseName) . '.' . $image->extension;
+                  $imageModelSave->name = $image->baseName;
+                  $imageModelSave->productId = $model->id;
+                  $imageModelSave->save(false);
+//                  var_dump($imageModelSave->id);
+                  
+                }
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+//            $producttypeNames = $producttypeModel->getAllProducttypeName();
+//            var_dump($producttypeNames);
+//            return $this->render('create', [
+//                'model' => $model,
+//                'imageModel' => $imageModel,
+//                'producttypeModel' => $producttypeModel,
+//            ]);
+            $items = ArrayHelper::map(Producttype::find()->all(),'product_type_name','product_type_name');
             return $this->render('create', [
                 'model' => $model,
+                'imageModel' => $imageModel,
+                'producttypeModel' => $producttypeModel,
+                'items' => $items,
             ]);
         }
     }

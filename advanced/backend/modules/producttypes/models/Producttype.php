@@ -3,6 +3,7 @@
 namespace backend\modules\producttypes\models;
 
 use Yii;
+use yii\helpers;
 
 /**
  * This is the model class for table "producttype".
@@ -43,5 +44,17 @@ class Producttype extends \yii\db\ActiveRecord
             'product_type_name' => 'Product Type Name',
             'parents' => 'Parents',
         ];
+    }
+    
+    public function getAllProducttypeName(){
+//        $criteria = new ActiveQuery(Producttype);
+//        $criteria->select = 'producttype.product_type_name';
+//        $data = Producttype::model()->findAll($criteria);
+//        var_dump($data);
+        
+//        $producttypeNames = Producttype::find()->select(['product_type_name']);
+//        var_dump($producttypeNames);
+        
+        
     }
 }

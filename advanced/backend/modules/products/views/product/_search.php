@@ -15,15 +15,7 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
     <?= $form->field($model, 'product_name') ?>
-
-    <?= $form->field($model, 'product_type_id') ?>
-
-    <?= $form->field($model, 'price') ?>
-
-    <?= $form->field($model, 'descritption') ?>
 
     <?php // echo $form->field($model, 'video_url') ?>
 
