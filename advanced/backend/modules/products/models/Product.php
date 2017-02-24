@@ -45,11 +45,11 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'product_name' => 'Product Name',
-            'product_type_id' => 'Product Type ID',
-            'price' => 'Price',
-            'descritption' => 'Descritption',
-            'video_url' => 'Video Url',
+            'product_name' => 'Tên sản phẩm',
+            'product_type_id' => 'Phân loại sản phẩm',
+            'price' => 'Giá',
+            'descritption' => 'Mô tả sản phẩm',
+            'video_url' => 'Link quảng cáo sản phẩm',
             'created_at' => 'Created At',
         ];
     }

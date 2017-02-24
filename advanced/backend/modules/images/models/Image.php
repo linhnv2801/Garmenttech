@@ -29,7 +29,7 @@ class Image extends \yii\db\ActiveRecord
         return [
             [['base_url', 'productId'], 'required'],
             [['name', 'base_url'], 'string'],
-            [['base_url'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg', 'maxFiles' => 10],
+            [['base_url'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, jpeg', 'maxFiles' => 3],
         ];
     }
 

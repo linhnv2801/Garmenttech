@@ -7,7 +7,6 @@ use backend\modules\products\models\Product;
 use backend\modules\products\models\ProductSearch;
 use backend\modules\images\models\Image;
 use backend\modules\producttypes\models\ProductType;
-
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -19,13 +18,12 @@ use yii\helpers\ArrayHelper;
 /**
  * ProductController implements the CRUD actions for Product model.
  */
-class ProductController extends Controller
-{
+class ProductController extends Controller {
+
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -35,7 +33,7 @@ class ProductController extends Controller
             ],
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'view', 'create', 'update', 'delete','logout'],
+                'only' => ['index', 'view', 'create', 'update', 'delete', 'logout'],
                 'rules' => [
                     [
                         'actions' => ['index', 'view', 'create', 'update', 'delete', 'logout'],
@@ -51,17 +49,16 @@ class ProductController extends Controller
      * Lists all Product models.
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $searchModel = new ProductSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
         ]);
     }
-    
+
 //    public function actionIndex()
 //    {
 //        $searchModel = new ProductSearch();
@@ -82,10 +79,9 @@ class ProductController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
     }
 
@@ -94,41 +90,33 @@ class ProductController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new Product();
         $imageModel = new Image();
         $producttypeModel = new ProductType();
 
-        if ($model->load(Yii::$app->request->post()) && $imageModel->load(Yii::$app->request->post()) && $model->save()) {
-            $images = UploadedFile::getInstances($imageModel, 'base_url');
-            foreach($images as $image){
-                $imageModelSave = new Image();
-              if(!empty($image)){
-                  $image->saveAs(Yii::$app->basePath . '/uploads/' . md5($image->baseName) . '.' . $image->extension);
-                  $imageModelSave->base_url = md5($image->baseName) . '.' . $image->extension;
-                  $imageModelSave->name = $image->baseName;
-                  $imageModelSave->productId = $model->id;
-                  $imageModelSave->save(false);
-//                  var_dump($imageModelSave->id);
-                  
+        if ($model->load(Yii::$app->request->post()) && $imageModel->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                $images = UploadedFile::getInstances($imageModel, 'base_url');
+                foreach ($images as $image) {
+                    $imageModelSave = new Image();
+                    if (!empty($image)) {
+                        $image->saveAs(Yii::$app->basePath . '/uploads/' . md5($image->baseName) . '.' . $image->extension);
+                        $imageModelSave->base_url = md5($image->baseName) . '.' . $image->extension;
+                        $imageModelSave->name = $image->baseName;
+                        $imageModelSave->productId = $model->id;
+                        $imageModelSave->save(false);
+                    }
                 }
+                return $this->redirect(['view', 'id' => $model->id]);
             }
-            return $this->redirect(['view', 'id' => $model->id]);
         } else {
-//            $producttypeNames = $producttypeModel->getAllProducttypeName();
-//            var_dump($producttypeNames);
-//            return $this->render('create', [
-//                'model' => $model,
-//                'imageModel' => $imageModel,
-//                'producttypeModel' => $producttypeModel,
-//            ]);
-            $items = ArrayHelper::map(Producttype::find()->all(),'product_type_name','product_type_name');
+            $items = ArrayHelper::map(Producttype::find()->all(), 'id', 'product_type_name');
             return $this->render('create', [
-                'model' => $model,
-                'imageModel' => $imageModel,
-                'producttypeModel' => $producttypeModel,
-                'items' => $items,
+                        'model' => $model,
+                        'imageModel' => $imageModel,
+                        'producttypeModel' => $producttypeModel,
+                        'items' => $items,
             ]);
         }
     }
@@ -139,15 +127,14 @@ class ProductController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
@@ -158,8 +145,7 @@ class ProductController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -172,12 +158,12 @@ class ProductController extends Controller
      * @return Product the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Product::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }

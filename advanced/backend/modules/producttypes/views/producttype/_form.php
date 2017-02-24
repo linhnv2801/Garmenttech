@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'product_type_name')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'parents')->textInput() ?>
+    <?php echo $form->field($model, 'parents')->dropDownList($items, ['prompt' => 'Chọn hạng mục cha....']); ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

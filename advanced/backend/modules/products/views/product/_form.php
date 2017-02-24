@@ -14,15 +14,16 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'product_name')->textarea(['rows' => 6]) ?>
 
-    <?= Html::activeDropDownList($producttypeModel, 'product_type_name', $items)?>
+    <?php // Html::activeDropDownList($producttypeModel, 'product_type_name', $items)?>
+    <?php echo $form->field($model, 'product_type_id')->dropDownList($items, ['prompt' => 'Chọn hạng mục....']); ?>
 
     <?= $form->field($model, 'price')->textInput() ?>
 
     <?= $form->field($model, 'descritption')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'video_url')->textarea(['rows' => 6]) ?>
-    
-    <?= $form->field($imageModel, 'base_url[]')->fileInput(['multiple' => true,'accept' => 'image/*']) ?>
+
+    <?= $form->field($imageModel, 'base_url[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
