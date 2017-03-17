@@ -32,7 +32,7 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             [['product_name', 'product_type_id'], 'required'],
-            [['product_name', 'descritption', 'video_url'], 'string'],
+            [['product_name', 'descritption', 'video_url', 'image_urls'], 'string'],
             [['product_type_id', 'price'], 'integer'],
             [['created_at'], 'safe'],
         ];
@@ -49,6 +49,7 @@ class Product extends \yii\db\ActiveRecord
             'product_type_id' => 'Phân loại sản phẩm',
             'price' => 'Giá',
             'descritption' => 'Mô tả sản phẩm',
+            'image_urls' => 'Anh',
             'video_url' => 'Link quảng cáo sản phẩm',
             'created_at' => 'Created At',
         ];

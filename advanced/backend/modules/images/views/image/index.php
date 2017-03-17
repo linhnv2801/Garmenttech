@@ -23,7 +23,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
+//            ['attribute'=>'image_path',
+//                'label'=>'Image',
+//                'format' => 'html',
+//                'content' => function($data){
+//                    $url = $data->getParentName();
+//                    return \yii\bootstrap\Html::
+//                }],
             'id',
             'name:ntext',
             'base_url:ntext',

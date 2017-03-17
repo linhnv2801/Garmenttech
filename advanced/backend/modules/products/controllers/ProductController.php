@@ -96,20 +96,26 @@ class ProductController extends Controller {
         $producttypeModel = new ProductType();
 
         if ($model->load(Yii::$app->request->post()) && $imageModel->load(Yii::$app->request->post())) {
-            if ($model->save()) {
-                $images = UploadedFile::getInstances($imageModel, 'base_url');
-                foreach ($images as $image) {
-                    $imageModelSave = new Image();
-                    if (!empty($image)) {
-                        $image->saveAs(Yii::$app->basePath . '/uploads/' . md5($image->baseName) . '.' . $image->extension);
-                        $imageModelSave->base_url = md5($image->baseName) . '.' . $image->extension;
-                        $imageModelSave->name = $image->baseName;
-                        $imageModelSave->productId = $model->id;
-                        $imageModelSave->save(false);
-                    }
-                }
-                return $this->redirect(['view', 'id' => $model->id]);
+            $image_url = "";
+            $images = UploadedFile::getInstances($imageModel, 'base_url');
+            foreach ($images as $image) {
+                    $image_url = $image_url." ". md5($image->baseName) . '.' . $image->extension;
             }
+            $model->image_urls = $image_url;
+            if($model->save()){
+                foreach ($images as $image) {
+                $imageModelSave = new Image();
+                if (!empty($image)) {
+                    $image->saveAs(Yii::$app->basePath . '/uploads/' . md5($image->baseName) . '.' . $image->extension);
+                    $imageModelSave->base_url = md5($image->baseName) . '.' . $image->extension;
+                    $imageModelSave->name = $image->baseName;
+                    $imageModelSave->productId = $model->id;
+                    $imageModelSave->save(false);
+                }
+            }
+            }
+            
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             $items = ArrayHelper::map(Producttype::find()->all(), 'id', 'product_type_name');
             return $this->render('create', [
@@ -129,12 +135,18 @@ class ProductController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->findModel($id);
+        $imageModel = new Image();
+        $producttypeModel = new ProductType();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+//            return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $items = ArrayHelper::map(Producttype::find()->all(), 'id', 'product_type_name');
             return $this->render('update', [
                         'model' => $model,
+                        'imageModel' => $imageModel,
+                        'producttypeModel' => $producttypeModel,
+                        'items' => $items,
             ]);
         }
     }

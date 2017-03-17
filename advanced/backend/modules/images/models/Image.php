@@ -27,9 +27,9 @@ class Image extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['base_url', 'productId'], 'required'],
+            [['base_url','productId'], 'required'],
             [['name', 'base_url'], 'string'],
-            [['base_url'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, jpeg', 'maxFiles' => 3],
+            [['base_url'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, jpeg', 'maxFiles' => 10],
         ];
     }
 
@@ -42,7 +42,7 @@ class Image extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'base_url' => 'Base Url',
-            'productId' => 'Product Id'
+            'productId' => 'Mã sản phẩm',
         ];
     }
     
