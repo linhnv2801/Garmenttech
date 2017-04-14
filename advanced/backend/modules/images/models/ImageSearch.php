@@ -18,7 +18,7 @@ class ImageSearch extends Image
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id','productId'], 'integer'],
             [['name', 'base_url'], 'safe'],
         ];
     }
@@ -62,7 +62,7 @@ class ImageSearch extends Image
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
+        $query->andFilterWhere(['like', 'name', $this->name])->andFilterWhere(['like', 'productId', $this->productId])
             ->andFilterWhere(['like', 'base_url', $this->base_url]);
 
         return $dataProvider;
