@@ -2,10 +2,18 @@
 
 $config = [
     'components' => [
-        'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'ZJjdqmWxvIRF02_XNJ9gBZ4qLIxcnGak',
+            'request' => [
+            'enableCookieValidation' => true,
+            'enableCsrfValidation' => true,
+            'cookieValidationKey' => 'xxxxxxx',
         ],
+            'db' =>[
+                'class' => 'yii\db\Connection',
+                'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
+                'username' => 'root',
+                'password' => '',
+                'charset' => 'utf8',
+            ],
     ],
 ];
 
