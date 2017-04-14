@@ -99,15 +99,15 @@ class ProductController extends Controller {
             $image_url = "";
             $images = UploadedFile::getInstances($imageModel, 'base_url');
             foreach ($images as $image) {
-                    $image_url = $image_url." ". md5($image->baseName) . '.' . $image->extension;
+                    $image_url = $image_url." ".'uploads/' . md5($image->baseName. time()) . '.' . $image->extension;
             }
             $model->image_urls = $image_url;
             if($model->save()){
                 foreach ($images as $image) {
                 $imageModelSave = new Image();
                 if (!empty($image)) {
-                    $image->saveAs(Yii::$app->basePath . '/uploads/' . md5($image->baseName) . '.' . $image->extension);
-                    $imageModelSave->base_url = md5($image->baseName) . '.' . $image->extension;
+                    $image->saveAs('uploads/' . md5($image->baseName. time()) . '.' . $image->extension);
+                    $imageModelSave->base_url = md5($image->baseName. time()) . '.' . $image->extension;
                     $imageModelSave->name = $image->baseName;
                     $imageModelSave->productId = $model->id;
                     $imageModelSave->save(false);
